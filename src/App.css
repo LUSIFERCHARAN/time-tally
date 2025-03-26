@@ -1,4 +1,6 @@
 /* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
 body {
   font-family: 'Orbitron', sans-serif;
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
@@ -10,9 +12,16 @@ body {
   align-items: center;
   height: 100vh;
   text-align: center;
+  overflow: hidden;
 }
 
-/* App Container */
+/* Neon Glow Effect */
+@keyframes neonGlow {
+  0% { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
+  50% { text-shadow: 0 0 20px #0ff, 0 0 30px #0ff; }
+  100% { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
+}
+
 .app-container {
   background: rgba(0, 0, 0, 0.8);
   border: 2px solid rgba(0, 255, 255, 0.5);
@@ -26,16 +35,17 @@ body {
 }
 
 .app-container:hover {
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.9);
+  transform: scale(1.02);
 }
 
 /* Heading */
 h1 {
-  font-size: 30px;
+  font-size: 32px;
   margin-bottom: 20px;
   text-transform: uppercase;
   color: #0ff;
-  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  animation: neonGlow 1.5s infinite alternate;
 }
 
 /* Add Timer Section */
@@ -48,13 +58,20 @@ h1 {
 
 .add-timer input {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   border: 2px solid #0ff;
   background: black;
   color: #0ff;
   border-radius: 8px;
   font-size: 16px;
   text-align: center;
+  transition: 0.3s;
+}
+
+.add-timer input:focus {
+  outline: none;
+  border-color: #00e6e6;
+  box-shadow: 0 0 10px #00e6e6;
 }
 
 .add-timer input::placeholder {
@@ -65,7 +82,7 @@ h1 {
   background: #0ff;
   color: black;
   border: none;
-  padding: 10px 15px;
+  padding: 12px 18px;
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
@@ -75,7 +92,7 @@ h1 {
 
 .add-timer button:hover {
   background: #00e6e6;
-  box-shadow: 0 0 10px #00e6e6;
+  box-shadow: 0 0 15px #00e6e6;
 }
 
 /* Timer List */
@@ -89,24 +106,25 @@ h1 {
 .timer-card {
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(0, 255, 255, 0.3);
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
   padding: 20px;
   border-radius: 12px;
   text-align: center;
-  transition: 0.3s;
+  transition: 0.3s ease-in-out;
+  position: relative;
 }
 
 .timer-card:hover {
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
-  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.9);
+  transform: translateY(-5px) scale(1.02);
 }
 
 .timer-card h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   color: #0ff;
-  text-shadow: 0 0 10px #0ff;
+  animation: neonGlow 1.5s infinite alternate;
 }
 
 /* Timer Display */
@@ -122,25 +140,25 @@ h1 {
 .timer-buttons {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
 }
 
 .timer-buttons button {
   background: #222;
   border: 2px solid #0ff;
   color: #0ff;
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease-in-out;
 }
 
 .timer-buttons button:hover {
   background: #0ff;
   color: black;
-  box-shadow: 0 0 10px #0ff;
+  box-shadow: 0 0 15px #0ff;
 }
 
 /* Delete Button */
@@ -152,13 +170,47 @@ h1 {
 
 .timer-buttons button:last-child:hover {
   background: #ff002f;
-  box-shadow: 0 0 10px #ff002f;
+  box-shadow: 0 0 15px #ff002f;
+}
+
+/* Profile & Logout Buttons */
+.profile-btn{
+  background: transparent;
+  border: 2px solid #0ff;
+  color: #0ff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 5px;
+  font-weight: bold;
+}
+.logout-btn {
+  background:#ff5517;
+  border: 2px solid #0ff;
+  color: #0ff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 5px;
+  font-weight: bold;
+}
+
+.profile-btn:hover,
+.logout-btn:hover {
+  background: #0ff;
+  color: black;
+  box-shadow: 0 0 15px #0ff;
 }
 
 /* Responsive */
 @media (max-width: 500px) {
   .app-container {
     width: 95%;
+    padding: 25px;
   }
 
   .timer-buttons {
@@ -169,3 +221,4 @@ h1 {
     width: 100%;
   }
 }
+
