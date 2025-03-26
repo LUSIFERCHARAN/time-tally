@@ -1,0 +1,44 @@
+.timer-card {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .timer-card h3 {
+    margin: 0;
+    color: #444;
+  }
+  
+  .timer-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .timer-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .timer-buttons button {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+  
+  .timer-buttons button:hover {
+    opacity: 0.8;
+  }
+  
+  .timer-buttons button:nth-child(1) { background: #28a745; color: white; } /* Start */
+  .timer-buttons button:nth-child(2) { background: #ffc107; color: black; } /* Pause */
+  .timer-buttons button:nth-child(3) { background: #17a2b8; color: white; } /* Reset */
+  .timer-buttons button:nth-child(4) { background: #dc3545; color: white; } /* Delete */
+  

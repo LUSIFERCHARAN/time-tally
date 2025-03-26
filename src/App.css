@@ -1,38 +1,171 @@
-.App {
+/* General Styles */
+body {
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* App Container */
+.app-container {
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  transition: 0.3s ease-in-out;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app-container:hover {
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Heading */
+h1 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+}
+
+/* Add Timer Section */
+.add-timer {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.add-timer input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #0ff;
+  background: black;
+  color: #0ff;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.add-timer input::placeholder {
+  color: rgba(0, 255, 255, 0.5);
+}
+
+.add-timer button {
+  background: #0ff;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.add-timer button:hover {
+  background: #00e6e6;
+  box-shadow: 0 0 10px #00e6e6;
+}
+
+/* Timer List */
+.timers-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 15px;
+}
+
+/* Timer Card */
+.timer-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.timer-card:hover {
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
+  transform: translateY(-5px);
+}
+
+.timer-card h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff;
+}
+
+/* Timer Display */
+.timer-card p {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #fff;
+  text-shadow: 0 0 10px #0ff;
+}
+
+/* Timer Buttons */
+.timer-buttons {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 8px;
+}
+
+.timer-buttons button {
+  background: #222;
+  border: 2px solid #0ff;
+  color: #0ff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.timer-buttons button:hover {
+  background: #0ff;
+  color: black;
+  box-shadow: 0 0 10px #0ff;
+}
+
+/* Delete Button */
+.timer-buttons button:last-child {
+  background: #ff1744;
+  border-color: #ff1744;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.timer-buttons button:last-child:hover {
+  background: #ff002f;
+  box-shadow: 0 0 10px #ff002f;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Responsive */
+@media (max-width: 500px) {
+  .app-container {
+    width: 95%;
   }
-  to {
-    transform: rotate(360deg);
+
+  .timer-buttons {
+    flex-direction: column;
+  }
+
+  .timer-buttons button {
+    width: 100%;
   }
 }
