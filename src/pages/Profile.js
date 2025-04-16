@@ -1,11 +1,11 @@
 import React from "react";
-import "./Profile.css"; // Import CSS inside the same folder
 
-export default function Profile() {
+export default function Profile({ setShowProfile }) {
   return (
     <div className="profile-container">
-      <h2>👤 Profile Page</h2>
+      <h2>Profile Page</h2>
       <p>Welcome to your profile!</p>
+      <button onClick={() => setShowProfile(false)}>Back to Home</button>
     </div>
   );
 }

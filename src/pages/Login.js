@@ -1,37 +1,37 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig";
-import Signup from "./Signup";
-import "./Login.css";
+import axios from "axios";
 
-export default function Login({ setIsLoggedIn }) {
+export default function Login({ setIsLoggedIn, setShowSignup }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showSignup, setShowSignup] = useState(false);
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      localStorage.setItem("isLoggedIn", "true");
-      setIsLoggedIn(true);
-    } catch (error) {
-      alert("❌ Login failed: " + error.message);
+      const res = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+      if (res.data.success) {
+        localStorage.setItem("isLoggedIn", "true");
+        setIsLoggedIn(true);
+      } else {
+        alert(res.data.message || "Invalid credentials");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Login failed: " + (err.response?.data?.message || err.message));
     }
   };
 
   return (
-    <>
-      {showSignup ? (
-        <Signup setShowSignup={setShowSignup} />
-      ) : (
-        <div className="login-container">
-          <h2>🔐 Login</h2>
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button onClick={handleLogin}>Login</button>
-          <p>Don't have an account? <span onClick={() => setShowSignup(true)}>Sign up</span></p>
-        </div>
-      )}
-    </>
+    <div className="login-container">
+      <h2>🔐 Login</h2>
+      <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+      <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+      <button onClick={handleLogin}>Login</button>
+      <p>
+        Don't have an account?{" "}
+        <span style={{ color: "blue", cursor: "pointer" }} onClick={() => setShowSignup(true)}>
+          Sign up
+        </span>
+      </p>
+    </div>
   );
 }

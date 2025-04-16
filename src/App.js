@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Timer from "./components/Timer";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile"; // Import Profile page
+import Signup from "./pages/Signup"; // Make sure to import the Signup component
 import "./App.css";
 
 export default function App() {
@@ -9,12 +10,18 @@ export default function App() {
     return localStorage.getItem("isLoggedIn") === "true";
   });
 
+  const [showSignup, setShowSignup] = useState(false); // State for showing the Signup page
   const [timers, setTimers] = useState(() => {
-    return JSON.parse(localStorage.getItem("timers")) || [];
+    const savedTimers = JSON.parse(localStorage.getItem("timers")) || [];
+    return savedTimers.map((timer) => ({
+      ...timer,
+      elapsedTime: Date.now() - timer.startTime,
+    }));
   });
 
   const [newTimerLabel, setNewTimerLabel] = useState("");
-  const [showProfile, setShowProfile] = useState(false); // State for profile page
+
+  const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("timers", JSON.stringify(timers));
@@ -22,7 +29,13 @@ export default function App() {
 
   const addTimer = () => {
     if (newTimerLabel.trim() !== "") {
-      setTimers([...timers, { id: Date.now(), label: newTimerLabel }]);
+      const newTimer = {
+        id: Date.now(),
+        label: newTimerLabel,
+        startTime: Date.now(),
+        elapsedTime: 0,
+      };
+      setTimers([...timers, newTimer]);
       setNewTimerLabel("");
     }
   };
@@ -36,11 +49,24 @@ export default function App() {
     setIsLoggedIn(false);
   };
 
+  const updateTimer = (id) => {
+    const updatedTimers = timers.map((timer) => {
+      if (timer.id === id) {
+        return {
+          ...timer,
+          elapsedTime: Date.now() - timer.startTime,
+        };
+      }
+      return timer;
+    });
+    setTimers(updatedTimers);
+  };
+
   return (
     <div className="app-container">
       {isLoggedIn ? (
         showProfile ? (
-          <Profile setShowProfile={setShowProfile} /> // Pass prop to go back
+          <Profile setShowProfile={setShowProfile} />
         ) : (
           <>
             <h1>⏳ Time Tally</h1>
@@ -61,13 +87,22 @@ export default function App() {
             </div>
             <div className="timers-list">
               {timers.map((timer) => (
-                <Timer key={timer.id} id={timer.id} label={timer.label} onDelete={deleteTimer} />
+                <Timer
+                  key={timer.id}
+                  id={timer.id}
+                  label={timer.label}
+                  elapsedTime={timer.elapsedTime}
+                  onDelete={deleteTimer}
+                  onUpdate={updateTimer}
+                />
               ))}
             </div>
           </>
         )
+      ) : showSignup ? (
+        <Signup setShowSignup={setShowSignup} setIsLoggedIn={setIsLoggedIn} />
       ) : (
-        <Login setIsLoggedIn={setIsLoggedIn} />
+        <Login setIsLoggedIn={setIsLoggedIn} setShowSignup={setShowSignup} />
       )}
     </div>
   );
